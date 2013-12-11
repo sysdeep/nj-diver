@@ -1,3 +1,11 @@
-The OpenShift `nodejs` cartridge documentation can be found at:
+The Diver`s node.js application
+===============================
 
-https://github.com/openshift/origin-server/tree/master/cartridges/openshift-origin-cartridge-nodejs/README.md
+
+This is simple node.js application for testing.
+
+
+
+See here: http://nj-diver.rhcloud.com/
+
+
