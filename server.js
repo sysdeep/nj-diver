@@ -2,6 +2,9 @@
 //  OpenShift sample Node application
 var express = require('express');
 var fs      = require('fs');
+var routes  = require('./app/routes');
+var http    = require('http');
+var path    = require('path');
 
 
 /**
@@ -37,21 +40,21 @@ var SampleApp = function() {
     /**
      *  Populate the cache.
      */
-    self.populateCache = function() {
-        if (typeof self.zcache === "undefined") {
-            self.zcache = { 'index.html': '' };
-        }
+    // self.populateCache = function() {
+    //     if (typeof self.zcache === "undefined") {
+    //         self.zcache = { 'index.html': '' };
+    //     }
 
-        //  Local cache for static content.
-        self.zcache['index.html'] = fs.readFileSync('./index.html');
-    };
+    //     //  Local cache for static content.
+    //     self.zcache['index.html'] = fs.readFileSync('./index.html');
+    // };
 
 
     /**
      *  Retrieve entry (content) from cache.
      *  @param {string} key  Key identifying content to retrieve from cache.
      */
-    self.cache_get = function(key) { return self.zcache[key]; };
+    // self.cache_get = function(key) { return self.zcache[key]; };
 
 
     /**
@@ -92,59 +95,107 @@ var SampleApp = function() {
     /**
      *  Create the routing table entries + handlers for the application.
      */
-    self.createRoutes = function() {
-        self.routes = { };
+    // self.createRoutes = function() {
+    //     self.routes = { };
 
-        self.routes['/asciimo'] = function(req, res) {
-            var link = "http://i.imgur.com/kmbjB.png";
-            res.send("<html><body><img src='" + link + "'></body></html>");
-        };
+    //     self.routes['/asciimo'] = function(req, res) {
+    //         var link = "http://i.imgur.com/kmbjB.png";
+    //         res.send("<html><body><img src='" + link + "'></body></html>");
+    //     };
 
-        self.routes['/'] = function(req, res) {
-            res.setHeader('Content-Type', 'text/html');
-            res.send(self.cache_get('index.html') );
-        };
-    };
+    //     self.routes['/'] = function(req, res) {
+    //         res.setHeader('Content-Type', 'text/html');
+    //         res.send(self.cache_get('index.html') );
+    //     };
+    // };
 
 
     /**
      *  Initialize the server (express) and create the routes and register
      *  the handlers.
      */
-    self.initializeServer = function() {
-        self.createRoutes();
-        self.app = express.createServer();
+    // self.initializeServer = function() {
+    //     self.createRoutes();
+    //     self.app = express.createServer();
 
-        //  Add handlers for the app (from the routes).
-        for (var r in self.routes) {
-            self.app.get(r, self.routes[r]);
-        }
-    };
+    //     //  Add handlers for the app (from the routes).
+    //     for (var r in self.routes) {
+    //         self.app.get(r, self.routes[r]);
+    //     }
+    // };
 
 
     /**
      *  Initializes the sample application.
      */
-    self.initialize = function() {
-        self.setupVariables();
-        self.populateCache();
-        self.setupTerminationHandlers();
+    // self.initialize = function() {
+    //     self.setupVariables();
+    //     // self.populateCache();
+    //     self.setupTerminationHandlers();
 
-        // Create the express server and routes.
-        self.initializeServer();
-    };
+    //     // Create the express server and routes.
+    //     self.initializeServer();
+    // };
 
 
     /**
      *  Start the server (starts up the sample application).
      */
-    self.start = function() {
-        //  Start the app on the specific interface (and port).
-        self.app.listen(self.port, self.ipaddress, function() {
-            console.log('%s: Node server started on %s:%d ...',
-                        Date(Date.now() ), self.ipaddress, self.port);
+    // self.start = function() {
+    //     //  Start the app on the specific interface (and port).
+    //     self.app.listen(self.port, self.ipaddress, function() {
+    //         console.log('%s: Node server started on %s:%d ...',
+    //                     Date(Date.now() ), self.ipaddress, self.port);
+    //     });
+    // };
+
+
+
+    // Web app urls
+    self.app  = express();
+  
+
+    //This uses the Connect frameworks body parser to parse the body of the post request
+    self.app.configure(function () {
+        self.app.use(express.bodyParser());
+        self.app.use(express.methodOverride());
+        self.app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+
+        //--- template
+        self.app.set('views', __dirname + '/app/views');
+        self.app.set('view engine', 'ejs');
+        
+        // self.app.use(express.favicon());
+        // self.app.use(express.logger('dev'));
+        // self.app.use(express.cookieParser('your secret here'));
+        // self.app.use(express.session());
+        // self.app.use(self.app.router);
+        // self.app.use(require('stylus').middleware(__dirname + '/public'));
+
+        //--- public
+        self.app.use(express.static(path.join(__dirname, 'public')));
+    });
+
+    //define all the url mappings
+    self.app.get("/", routes.index);
+    // self.app.get('/users', user.list);
+
+
+
+
+    //starting the nodejs server with express
+    self.startServer = function(){
+        self.setupVariables();
+        self.setupTerminationHandlers();
+
+        self.app.listen(self.port, self.ipaddress, function(){
+        console.log('%s: Node server started on %s:%d ...', Date(Date.now()), self.ipaddress, self.port);
         });
-    };
+    }
+
+
+
+
 
 };   /*  Sample Application.  */
 
@@ -154,6 +205,6 @@ var SampleApp = function() {
  *  main():  Main code.
  */
 var zapp = new SampleApp();
-zapp.initialize();
-zapp.start();
+// zapp.initialize();
+zapp.startServer();
 
