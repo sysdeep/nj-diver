@@ -178,6 +178,8 @@ var SampleApp = function() {
 
     //define all the url mappings
     self.app.get("/", routes.index);
+    self.app.get("/about", routes.about);
+    self.app.get("/release", routes.release);
     // self.app.get('/users', user.list);
 
 
