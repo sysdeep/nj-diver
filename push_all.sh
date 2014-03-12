@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# Openshift
+# GitHub
 git push origin master
 
 
-# GitHub
+# Openshift
 git push github master
+
