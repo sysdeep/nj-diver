@@ -5,5 +5,5 @@ git push origin master
 
 
 # Openshift
-git push github master
+git push shift master
 
