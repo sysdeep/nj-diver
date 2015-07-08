@@ -33,7 +33,7 @@ function setupVariables() {
  */
 function terminator(sig){
     if (typeof sig === "string") {
-       console.log('%s: Received %s - terminating sample app ...',
+       console.log('%s: Received %s - terminating app ...',
                    Date(Date.now()), sig);
        process.exit(1);
     }
@@ -96,31 +96,34 @@ server.startServer = function(){
 
 
 
-    /**
-     * Event listener for HTTP server "listening" event.
-     */
+/**
+ * Event listener for HTTP server "listening" event.
+ */
 
-    function onListening() {
-        console.log('%s: Node server started on %s:%d ...', Date(Date.now()), IPADDRESS, PORT);
-    	// var addr = self.server.address();
-    	// var bind = typeof addr === 'string'
-    	// 	? 'pipe ' + addr
-    	// 	: 'port ' + addr.port;
-    	// debug('Listening on ' + bind);
-    };
+function onListening() {
+    console.log('%s: Node server started on %s:%d ...', Date(Date.now()), IPADDRESS, PORT);
+	// var addr = self.server.address();
+	// var bind = typeof addr === 'string'
+	// 	? 'pipe ' + addr
+	// 	: 'port ' + addr.port;
+	// debug('Listening on ' + bind);
+};
 
-    /**
-     * Event listener for HTTP server "error" event.
-     */
 
+
+
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
 function onError(error) {
 	if (error.syscall !== 'listen') {
 		throw error;
 	}
 
 	var bind = typeof PORT === 'string'
-		? 'Pipe ' + port
-		: 'Port ' + port
+		? 'Pipe ' + PORT
+		: 'Port ' + PORT
 
 	// handle specific listen errors with friendly messages
 	switch (error.code) {
