@@ -9,16 +9,16 @@
 
 	<title>Diver`s nj application</title>
 
-	
+
 	<!-- jQuery -->
 	<script src="/vendors/jquery.js"></script>
-	
+
 
 	<!-- Bootstrap core CSS -->
 	<link href="/vendors/bootstrap-3.0.0/css/bootstrap.css" rel="stylesheet">
 	<script src="/vendors/bootstrap-3.0.0/js/bootstrap.min.js"></script>
 
-	 
+
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -75,9 +75,69 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/about">About</a></li>
 			</ul>
-		  
+
 		</div><!--/.navbar-collapse -->
 	  </div>
 	</div>
 
-	
+
+
+
+
+
+        {% block content %}
+        {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    		<div style="height: 50px"></div>
+
+
+    		<nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse" role="navigation">
+    			<div class="container">
+
+    				<div class="row">
+    					<div class="col-md-4">
+    						<p class="navbar-text">v 0.2.1 </p>
+    					</div>
+    					<div class="col-md-4">
+    						<p class="navbar-text pull-left" data-toggle="modal" data-target="#debugModal">	© 2014 DeepStudio	</p>
+    					</div>
+    					<div class="col-md-4">
+    						<p class="navbar-text pull-right">	<a href="http://nj-diver.rhcloud.com/"><i class="icon-home"></i> self</a>	</p>
+    					</div>
+    				</div>
+
+
+
+    			</div>
+    		</nav>
+
+
+
+
+
+
+
+
+
+      	</body>
+    </html>
