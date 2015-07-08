@@ -69,13 +69,13 @@ server.startServer = function(){
     /**
      * Create HTTP server.
      */
-    var server = http.createServer(app);
+    // var server = http.createServer(app);
 
 
     /**
      * Listen on provided port, on all network interfaces.
      */
-    server.listen(PORT);
+    // server.listen(PORT);
     // console.log('%s: Node server started on %s:%d ...', Date(Date.now()), IPADDRESS, PORT);
     // log.info("server started on port: " + port);
     // models.sequelize.sync().then(function(){
@@ -86,12 +86,12 @@ server.startServer = function(){
 
 
 
-    server.on('error', onError);
-    server.on('listening', onListening);
+    // server.on('error', onError);
+    // server.on('listening', onListening);
 
-    // self.app.listen(self.port, self.ipaddress, function(){
-    // console.log('%s: Node server started on %s:%d ...', Date(Date.now()), self.ipaddress, self.port);
-    // });
+    app.listen(PORT, IPADDRESS, function(){
+        console.log('%s: Node server started on %s:%d ...', Date(Date.now()), IPADDRESS, PORT);
+    });
 }
 
 
@@ -100,14 +100,14 @@ server.startServer = function(){
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
-    console.log('%s: Node server started on %s:%d ...', Date(Date.now()), IPADDRESS, PORT);
-	// var addr = self.server.address();
-	// var bind = typeof addr === 'string'
-	// 	? 'pipe ' + addr
-	// 	: 'port ' + addr.port;
-	// debug('Listening on ' + bind);
-};
+// function onListening() {
+//     console.log('%s: Node server started on %s:%d ...', Date(Date.now()), IPADDRESS, PORT);
+// 	// var addr = self.server.address();
+// 	// var bind = typeof addr === 'string'
+// 	// 	? 'pipe ' + addr
+// 	// 	: 'port ' + addr.port;
+// 	// debug('Listening on ' + bind);
+// };
 
 
 
@@ -116,29 +116,29 @@ function onListening() {
 /**
  * Event listener for HTTP server "error" event.
  */
-function onError(error) {
-	if (error.syscall !== 'listen') {
-		throw error;
-	}
-
-	var bind = typeof PORT === 'string'
-		? 'Pipe ' + PORT
-		: 'Port ' + PORT
-
-	// handle specific listen errors with friendly messages
-	switch (error.code) {
-		case 'EACCES':
-			console.error(bind + ' requires elevated privileges');
-			process.exit(1);
-			break;
-		case 'EADDRINUSE':
-			console.error(bind + ' is already in use');
-			process.exit(1);
-			break;
-		default:
-			throw error;
-	}
-}
+// function onError(error) {
+// 	if (error.syscall !== 'listen') {
+// 		throw error;
+// 	}
+//
+// 	var bind = typeof PORT === 'string'
+// 		? 'Pipe ' + PORT
+// 		: 'Port ' + PORT
+//
+// 	// handle specific listen errors with friendly messages
+// 	switch (error.code) {
+// 		case 'EACCES':
+// 			console.error(bind + ' requires elevated privileges');
+// 			process.exit(1);
+// 			break;
+// 		case 'EADDRINUSE':
+// 			console.error(bind + ' is already in use');
+// 			process.exit(1);
+// 			break;
+// 		default:
+// 			throw error;
+// 	}
+// }
 
 
 
