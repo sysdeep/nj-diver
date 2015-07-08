@@ -1,6 +1,7 @@
 #!/bin/env node
 /**
- * OpenShift sample Node application
+ * app/server.js
+ * application server module
  */
 
 var app     = require("./app.js");
@@ -8,10 +9,13 @@ var debug   = require('debug')('cconf_js:server');
 var http    = require('http');
 
 
-var server = {};
-var IPADDRESS = "";
-var PORT = 0;
+var server = {};        // export object
+var IPADDRESS = "";     // ip
+var PORT = 0;           // port
 
+/**
+ * setup ip and port
+ */
 function setupVariables() {
     //  Set the environment variables we need.
     IPADDRESS = process.env.OPENSHIFT_NODEJS_IP;
@@ -58,108 +62,20 @@ function setupTerminationHandlers(){
 
 
 
-
-//starting the nodejs server with express
+/**
+ * starting the nodejs server with express
+ */
 server.startServer = function(){
-    setupVariables();
-    setupTerminationHandlers();
+    setupVariables();               // setup ip and port
+    setupTerminationHandlers();     // setup term handlers
 
-    app.set('port', PORT);
+    app.set('port', PORT);          // set app port
 
-    /**
-     * Create HTTP server.
-     */
-    // var server = http.createServer(app);
-
-
-    /**
-     * Listen on provided port, on all network interfaces.
-     */
-    // server.listen(PORT);
-    // console.log('%s: Node server started on %s:%d ...', Date(Date.now()), IPADDRESS, PORT);
-    // log.info("server started on port: " + port);
-    // models.sequelize.sync().then(function(){
-    //     server.listen(port);
-    //     log.info("server started on port: " + port);
-    // });
-
-
-
-
-    // server.on('error', onError);
-    // server.on('listening', onListening);
-
+    // starting listenning
     app.listen(PORT, IPADDRESS, function(){
         console.log('%s: Node server started on %s:%d ...', Date(Date.now()), IPADDRESS, PORT);
     });
 }
 
 
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-// function onListening() {
-//     console.log('%s: Node server started on %s:%d ...', Date(Date.now()), IPADDRESS, PORT);
-// 	// var addr = self.server.address();
-// 	// var bind = typeof addr === 'string'
-// 	// 	? 'pipe ' + addr
-// 	// 	: 'port ' + addr.port;
-// 	// debug('Listening on ' + bind);
-// };
-
-
-
-
-
-/**
- * Event listener for HTTP server "error" event.
- */
-// function onError(error) {
-// 	if (error.syscall !== 'listen') {
-// 		throw error;
-// 	}
-//
-// 	var bind = typeof PORT === 'string'
-// 		? 'Pipe ' + PORT
-// 		: 'Port ' + PORT
-//
-// 	// handle specific listen errors with friendly messages
-// 	switch (error.code) {
-// 		case 'EACCES':
-// 			console.error(bind + ' requires elevated privileges');
-// 			process.exit(1);
-// 			break;
-// 		case 'EADDRINUSE':
-// 			console.error(bind + ' is already in use');
-// 			process.exit(1);
-// 			break;
-// 		default:
-// 			throw error;
-// 	}
-// }
-
-
-
-
-
 module.exports = server;
-
-
-
-
-
-
-
-//
-//
-//
-//
-//
-// /**
-//  *  main():  Main code.
-//  */
-// var zapp = new NodeApp();
-// // zapp.initialize();
-// zapp.startServer();

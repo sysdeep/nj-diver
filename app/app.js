@@ -1,5 +1,6 @@
 /**
  * app.js
+ * create express app
  */
 
 
@@ -8,19 +9,21 @@ var express     = require('express');
 var path        = require('path');
 var favicon     = require('serve-favicon');
 var logger      = require('morgan');
-// var cookieParser = require('cookie-parser');
 var bodyParser  = require('body-parser');
-// var config 		= require("./config");
 var swig 		= require("swig");
+
+// var config 		= require("./config");
+// var cookieParser = require('cookie-parser');
 // var session 	= require('express-session');
 
-
-var r_index  = require('./routes/index');
-
-
-
+//-- routes
+var r_index     = require('./routes/index');
+var r_songs     = require('./routes/songs');
 
 
+
+
+//-- app
 app  = express();
 
 
@@ -35,17 +38,22 @@ app.set('view cache', false);
 swig.setDefaults({ cache: false });
 // NOTE: You should always cache templates in a production environment.
 // Don't leave both of these to `false` in production!
-
+//--- template
 
 //--- local vars
 // self.app.locals.version = config.version;
 // self.app.locals.server = "1.1.1.1";
+//--- local vars
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
+
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 // app.use(cookieParser());
 // app.use(express.session({secret: '1234567890QWERTY'}));
 // app.use(session({
@@ -59,14 +67,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // }));
 
 
-// self.app.set('view engine', 'ejs');
-
-// self.app.use(express.favicon());
-// self.app.use(express.logger('dev'));
-// self.app.use(express.cookieParser('your secret here'));
-// self.app.use(express.session());
-// self.app.use(self.app.router);
-// self.app.use(require('stylus').middleware(__dirname + '/public'));
 
 //--- public
 app.use(express.static(path.join(__dirname, "..", 'public')));
@@ -74,23 +74,13 @@ app.use(express.static(path.join(__dirname, "..", 'public')));
 
 
 //-- routes ---------------------------------------------------------------
-app.use('/',            r_index);                // main + gui
-// app.use('/devices',     r_devices);             // devices service
-// app.use('/settings',    r_settings);            // devices service
-// app.use('/action',  r_action);              // gui rest actions
-
-//app.use('/users', users);
-//app.use('/storage', r_storage);
+app.use('/',            r_index);                // main
+app.use('/songs',       r_songs);               // songs
 
 // app.use("/api/v1", api_1);                  // REST api 1
 // app.use("/api/v2", api_2);                  // REST api 2
 //-- routes ---------------------------------------------------------------
 
-//define all the url mappings
-// self.app.get("/", routes.index);
-// self.app.get("/about", routes.about);
-// self.app.get("/release", routes.release);
-// self.app.get('/users', user.list);
 
 
 //--- 404 ---------------------------------------------------------------------
@@ -110,7 +100,6 @@ app.use(function(req, res, next) {
 
 
 //--- error handlers ----------------------------------------------------------
-
 /**
  *  обработчик ошибок
  *  в любом случае ошибки возврвщаем json объект со статусом ошибки

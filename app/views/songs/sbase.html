@@ -1,0 +1,33 @@
+{% extends "../base.html" %}
+
+
+
+{% block content %}
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    <!-- <h1>Welcome to {{ title }}</h1> -->
+    <h1>Songs</h1>
+    <p>submessage</p>
+  </div>
+</div>
+
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-4">
+            menu
+        </div>
+        <div class="col-md-8">
+            {% block scontent %}{% endblock %}
+        </div>
+    </div>
+
+
+
+</div>
+
+{% endblock %}
