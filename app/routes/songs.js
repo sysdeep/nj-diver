@@ -51,12 +51,19 @@ router.get("/songs/:id", function(req, res, next){
 
 
 router.post("/songs", function(req, res, next){
-	console.log("post");
-	console.log(req.body);
-	var song = new Song(req.body);
-	song.save();
-	res.status(201).send(song);
-	
+	if( Object.keys(req.body).length > 0 ){
+		var song = new Song(req.body);
+		song.save(function(err, song){
+			if(err){
+				res.status(500).send(err);
+			}else{
+				res.status(201).send(song);
+			}
+		});
+		
+	}else{
+		res.status(500).send("no input body");
+	}
 	
 });
 
@@ -69,8 +76,13 @@ router.put("/songs/:id", function(req, res, next){
 			res.status(500).send(err);
 		}else{
 			song.name = req.body.name;
-			song.save();
-			res.status(200).send(song);		
+			song.save(function(err, song){
+				if(err){
+					res.status(500).send(err);
+				}else{
+					res.status(201).send(song);
+				}
+			});		
 		}
 	});
 	
@@ -99,8 +111,13 @@ router.patch("/songs/:id", function(req, res, next){
 			for(var p in req.body){
 				song[p] = req.body[p];
 			}
-			song.save();
-			res.status(200).send(song);		
+			song.save(function(err, song){
+				if(err){
+					res.status(500).send(err);
+				}else{
+					res.status(201).send(song);
+				}
+			});	
 		}
 	});
 	
