@@ -6,17 +6,17 @@ var tag = require("./models/tag");
 
 
 
-var s1 = new song({
-    name: "Scooter",
-    text: "Scooter song text",
-    description: "Scooter song",
-    tags: [1,2,3],
-    created: Date.now()
-});
+// var s1 = new song({
+//     name: "Scooter",
+//     text: "Scooter song text",
+//     description: "Scooter song",
+//     tags: [1,2,3],
+//     created: Date.now()
+// });
 
 
-var tag1 = new tag({name: "hardcore"});
-var tag2 = new tag({name: "trance"});
+// var tag1 = new tag({name: "hardcore"});
+// var tag2 = new tag({name: "trance"});
 
 
 // var igor = new kitty({name: "Pasha"});
