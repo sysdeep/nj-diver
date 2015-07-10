@@ -7,9 +7,9 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container">
-    <!-- <h1>Welcome to {{ title }}</h1> -->
-    <h1>Songs</h1>
-    <p>submessage</p>
+	<!-- <h1>Welcome to {{ title }}</h1> -->
+	<h1>Songs</h1>
+	<p>submessage</p>
   </div>
 </div>
 
@@ -17,17 +17,43 @@
 
 <div class="container">
 
-    <div class="row">
-        <div class="col-md-4">
-            menu
-        </div>
-        <div class="col-md-8">
-            {% block scontent %}{% endblock %}
-        </div>
-    </div>
+	<div ng-app="songsApp"></div>
+
+
+	<div class="row">
+		<div class="col-md-4">
+			menu
+		</div>
+		<div class="col-md-8">
+			{% block scontent %}{% endblock %}
+		</div>
+	</div>
 
 
 
 </div>
+
+{% endblock %}
+
+
+{% block extra_body %}
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#m_menu_songs").addClass('active');
+		});
+	</script>
+
+
+
+	<!-- vendor -->
+	<script src="/vendors/angular/angular.min.js"></script>
+
+	<script type="text/javascript">
+		var app = angular.module("songsApp", []);
+		app.run(function(){
+			console.log("app is running");
+		});
+	</script>
 
 {% endblock %}

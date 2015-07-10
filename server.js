@@ -9,5 +9,12 @@
 var server 	= require("./app/server");
 var db 		= require("./app/db");
 
+
+// run db
+db.connect();
+
+
+
+
 // run server
 server.startServer();
