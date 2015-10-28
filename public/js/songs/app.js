@@ -57,7 +57,9 @@
 
 
 
-    
+    app.run(function($rootScope, svcData){
+        $rootScope.data = svcData.data;
+    });
 
 
 

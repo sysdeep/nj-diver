@@ -11,9 +11,12 @@
 
 		var data = {
 
+			"current_view": "",
+
 			"songs": [],
 			"songs_count": 0,
 			"songs_loaded": false,
+			"songs_need_update": true,
 
 			"song": {},
 			"song_loaded": false,
@@ -30,6 +33,26 @@
 		};
 
 
+		function set_default_song(){
+			data.song = {
+				// _id			: 0,
+				singer		: "",					// исполнитель
+				author		: "",					// автор
+			    name 		: "",					// название песни
+			    album		: "",					// альбом
+			    text		: "",					// текст
+			    description	: "",					// доп. описание
+			    // tags		: Array,				// теги
+			    genre		: "", 					// жанр
+			    created		: "",					// дата создания
+			    updated		: "",					// дата изменения
+			    api 		: 1
+			};
+		}
+
+
+
+		set_default_song();
 
 		// function get_log_files(){
 		//     data.log_files_loaded = false;
@@ -63,10 +86,12 @@
 			$http.get("/songs/get_songs").success(function (response) {
 				data.songs = response;
 				data.songs_loaded = true;
+				data.songs_need_update = false;
 			}).error(function(response){
 				console.log("error");
 				console.log(response);
 				data.songs_loaded = true;
+				data.songs_need_update = true;
 			});
 		}
 
@@ -81,6 +106,44 @@
 				console.log("error");
 				console.log(response);
 				data.song_loaded = true;
+			});
+		}
+
+
+
+		function create_song(){
+			$http.post("/songs/create_song", data.song).success(function(response){
+				console.log("ok");
+				data.songs_need_update = true;
+			}).error(function(response){
+				console.log("error");
+				console.log(response);
+			});
+		}
+
+		function update_song(){
+			$http.post("/songs/update_song", data.song).success(function(response){
+				console.log("ok");
+				data.songs_need_update = true;
+			}).error(function(response){
+				console.log("error");
+				console.log(response);
+			});
+		}
+
+
+
+		function remove_song(){
+			$http.post("/songs/remove_song", data.song).success(function(response){
+				console.log("ok");
+				// data.songs_need_update = true;
+
+
+				var index = data.songs.indexOf(data.song);
+				data.songs.splice(index, 1);
+			}).error(function(response){
+				console.log("error");
+				console.log(response);
 			});
 		}
 
@@ -179,18 +242,13 @@
 
 
 		return {
-			"data": data,
-			"get_songs": get_songs,
-			"get_song": get_song,
-			// "get_logs_limit": get_logs_limit,
-			// "get_apps": get_apps,
-			// "get_events_limit": get_events_limit,
-			// "get_log_files": get_log_files,
-			// "get_log_file": get_log_file,
-
-			// "get_data_dirs": get_data_dirs,
-			// "get_data_files": get_data_files,
-			// "get_data_file": get_data_file
+			"data"				: data,
+			"get_songs"			: get_songs,
+			"get_song"			: get_song,
+			"set_default_song"	: set_default_song,
+			"create_song"		: create_song,
+			"update_song"		: update_song,
+			"remove_song"		: remove_song
 		}
 
 
