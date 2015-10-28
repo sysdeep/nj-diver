@@ -12,7 +12,7 @@ var logger      = require('morgan');
 var bodyParser  = require('body-parser');
 var swig 		= require("swig");
 
-// var config 		= require("./config");
+var config 		= require("../config");
 // var cookieParser = require('cookie-parser');
 // var session 	= require('express-session');
 
@@ -41,7 +41,7 @@ swig.setDefaults({ cache: false });
 //--- template
 
 //--- local vars
-// self.app.locals.version = config.version;
+app.locals.VERSION = config.VERSION;
 // self.app.locals.server = "1.1.1.1";
 //--- local vars
 

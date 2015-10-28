@@ -1,0 +1,65 @@
+{% extends "./base.html" %}
+
+
+
+{% block content %}
+
+<div ng-app="songsApp">
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-3">
+				<div class="page-header">
+  					<h3>Main menu</h3>
+				</div>
+
+				<div class="list-group">
+				  	<a href="#/main" class="list-group-item active">Main</a>
+				  	<a href="#/edit" class="list-group-item">Edit</a>
+				  
+				</div>
+
+
+			</div>
+			<div class="col-md-9">
+				<div class="page-header">
+  					<h3>Work field</h3>
+				</div>
+				<ng-view></ng-view>
+				
+			</div>
+		</div>
+
+
+	</div>
+
+</div>
+{% endblock %}
+
+
+{% block extra_body %}
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#m_menu_songs").addClass('active');
+		});
+	</script>
+
+
+
+	<!-- vendor -->
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-route/angular-route.min.js"></script>
+
+
+
+	<script src="/js/songs/app.js?version={{ VERSION }}"></script>
+	<script src="/js/songs/svc_data.js?version={{ VERSION }}"></script>
+	<script src="/js/songs/ctrl_edit.js?version={{ VERSION }}"></script>
+	<script src="/js/songs/ctrl_main.js?version={{ VERSION }}"></script>
+	<script src="/js/songs/ctrl_song.js?version={{ VERSION }}"></script>
+
+	
+
+{% endblock %}

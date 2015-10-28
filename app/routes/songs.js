@@ -14,7 +14,7 @@ router.get("/", function(req, res, next){
         title: 'Express',
         messg: "Epress for diver"
     };
-    res.render('songs/main', data);
+    res.render('songs', data);
 });
 
 
@@ -36,7 +36,39 @@ router.get("/songs/", function(req, res, next){
 
 
 
+router.get("/get_songs/", function(req, res, next){
+	// console.log("all songs");
+	Song.find(function(err, songs){
+		
+		if(err){
+			console.log(err);
+			res.status(500).send(err);
+		}else{
+			res.status(200).send(songs);
+		}
+	});
+
+});
+
+
+
+
 router.get("/songs/:id", function(req, res, next){
+	console.log("find by id");
+	Song.findById(req.params.id, function(err, song){
+		if(err){
+			console.log(err);
+			res.status(500).send(err);
+		}else{
+			res.status(200).send(song);
+		}
+	});
+
+});
+
+
+
+router.get("/get_song/:id", function(req, res, next){
 	console.log("find by id");
 	Song.findById(req.params.id, function(err, song){
 		if(err){
