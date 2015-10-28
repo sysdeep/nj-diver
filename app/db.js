@@ -8,8 +8,10 @@ var mongoose = require("mongoose");
 var db_host = process.env.OPENSHIFT_MONGODB_DB_HOST || "localhost";
 var db_port = process.env.OPENSHIFT_MONGODB_DB_PORT || 27017;
 var db_name = process.env.OPENSHIFT_APP_NAME || "nj";
-var db_user = process.env.OPENSHIFT_MONGODB_DB_USERNAME || "mongo";
-var db_pass = process.env.OPENSHIFT_MONGODB_DB_PASSWORD || "mongo";
+var db_user = process.env.OPENSHIFT_MONGODB_DB_USERNAME || "admin";
+var db_pass = process.env.OPENSHIFT_MONGODB_DB_PASSWORD || "PHIXjVy9_6er";
+// var db_user = process.env.OPENSHIFT_MONGODB_DB_USERNAME || "mongo";
+// var db_pass = process.env.OPENSHIFT_MONGODB_DB_PASSWORD || "mongo";
 
 
 
