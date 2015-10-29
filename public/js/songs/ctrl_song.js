@@ -16,7 +16,7 @@
 
 
         $scope.edit = function(){
-            $location.path( "/edit" );
+            $location.path( "/edit/"+svcData.data.song._id );
         }
 
 

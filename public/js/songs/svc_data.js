@@ -7,7 +7,7 @@
 	var app = angular.module("songsApp");
 
 
-	app.factory("svcData", function($rootScope, $http){
+	app.factory("svcData", function($rootScope, $http, $location, notify){
 
 		var data = {
 
@@ -87,11 +87,15 @@
 				data.songs = response;
 				data.songs_loaded = true;
 				data.songs_need_update = false;
+				notify.n_success("Список загружен");
+
 			}).error(function(response){
 				console.log("error");
 				console.log(response);
 				data.songs_loaded = true;
 				data.songs_need_update = true;
+
+				notify.n_error(JSON.stringify(response), "Ошибка загрузки списка");
 			});
 		}
 
@@ -106,6 +110,7 @@
 				console.log("error");
 				console.log(response);
 				data.song_loaded = true;
+				notify.n_error(JSON.stringify(response), "Ошибка загрузки записи");
 			});
 		}
 
@@ -114,20 +119,31 @@
 		function create_song(){
 			$http.post("/songs/create_song", data.song).success(function(response){
 				console.log("ok");
+				console.log(response);
+				data.song._id = response._id;
+				data.song.created = response.created;
+				data.song.updated = response.updated;
 				data.songs_need_update = true;
+				notify.n_success("Запись создана успешно");
+				$location.path( "/song/"+data.song._id );
 			}).error(function(response){
 				console.log("error");
 				console.log(response);
+				notify.n_error(JSON.stringify(response), "Ошибка создания записи");
 			});
 		}
 
 		function update_song(){
 			$http.post("/songs/update_song", data.song).success(function(response){
 				console.log("ok");
+				data.song.updated = response.updated;
 				data.songs_need_update = true;
+				notify.n_success("Запись обновлена успешно");
+				$location.path( "/song/"+data.song._id );
 			}).error(function(response){
 				console.log("error");
 				console.log(response);
+				notify.n_error(JSON.stringify(response), "Ошибка обновления записи");
 			});
 		}
 
@@ -141,9 +157,11 @@
 
 				var index = data.songs.indexOf(data.song);
 				data.songs.splice(index, 1);
+				notify.n_success("Запись удалена успешно");
 			}).error(function(response){
 				console.log("error");
 				console.log(response);
+				notify.n_error(JSON.stringify(response), "Ошибка удаления записи");
 			});
 		}
 

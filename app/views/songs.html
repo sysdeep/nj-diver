@@ -1,5 +1,12 @@
 {% extends "./base.html" %}
 
+{% block extra_head %}
+
+	<link rel="stylesheet" href="/bower_components/angular-ui-notification/dist/angular-ui-notification.min.css">
+
+{% endblock %}
+
+
 
 
 {% block content %}
@@ -10,22 +17,22 @@
 
 		<div class="row">
 			<div class="col-md-3">
-				<div class="page-header">
+				{# <div class="page-header">
   					<h3>Main menu</h3>
-				</div>
+				</div> #}
 
 				<div class="list-group">
 				  	<a href="#/main" class="list-group-item activ1e" ng-class="{active: data.current_view == 'main'}">Главная</a>
-				  	<a href="#/edit" class="list-group-item" ng-class="{active: data.current_view == 'edit'}">Создание</a>
+				  	<a href="#/edit/0" class="list-group-item" ng-class="{active: data.current_view == 'edit'}">Создание</a>
 				  
 				</div>
 
 
 			</div>
 			<div class="col-md-9">
-				<div class="page-header">
+				{# <div class="page-header">
   					<h3>Work field</h3>
-				</div>
+				</div> #}
 				<ng-view></ng-view>
 				
 			</div>
@@ -51,6 +58,8 @@
 	<!-- vendor -->
 	<script src="/bower_components/angular/angular.min.js"></script>
 	<script src="/bower_components/angular-route/angular-route.min.js"></script>
+
+	<script src="/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
 
 
 

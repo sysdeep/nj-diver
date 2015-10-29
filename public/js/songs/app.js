@@ -4,7 +4,7 @@
 
 
 
-	var app = angular.module("songsApp", ["ngRoute"]);
+	var app = angular.module("songsApp", ["ngRoute", "ui-notification"]);
 
 
 
@@ -12,6 +12,18 @@
          	$interpolateProvider.startSymbol('[[');
          	$interpolateProvider.endSymbol(']]');
     	}]);
+
+    app.config(function(NotificationProvider) {
+        NotificationProvider.setOptions({
+            delay: 10000,
+            startTop: 20,
+            startRight: 10,
+            verticalSpacing: 10,
+            horizontalSpacing: 10,
+            positionX: 'left',
+            positionY: 'bottom'
+        });
+    });
 
 
     app.config(["$routeProvider", function($routeProvider){
@@ -21,7 +33,7 @@
         });
 
 
-        $routeProvider.when("/edit", {
+        $routeProvider.when("/edit/:song_id", {
             templateUrl : "/js_view/songs/edit.html",
             controller: "EditCtrl"
         });
@@ -57,8 +69,51 @@
 
 
 
-    app.run(function($rootScope, svcData){
+    app.run(function($rootScope, svcData, Notification, notify){
         $rootScope.data = svcData.data;
+
+        // Notification("hello");
+        // Notification("hello");
+        // Notification("hello");
+        // Notification("hello");
+
+        // notify.n_info("");
+        // notify.n_info("info");
+        // notify.n_info("info", "INFO");
+        // notify.n_primary("primary");
+        // notify.n_success("success");
+        // notify.n_warning("warning");
+        // notify.n_error("error");
+
+    });
+
+
+
+    /**
+     * обёртка над Notification
+     */
+    app.factory("notify", function(Notification){
+        return {
+            n_info: function(text, title){
+                Notification.info({message: text || "---", title: title || ""});
+            },
+
+            n_primary: function(text, title){
+                Notification.primary({message: text || "---", title: title || ""});
+            },
+
+            n_success: function(text, title){
+                Notification.success({message: text || "---", title: title || ""});
+            },
+
+            n_warning: function(text, title){
+                Notification.warning({message: text || "---", title: title || ""});
+            },
+
+            n_error: function(text, title){
+                Notification.error({message: text || "---", title: title || ""});
+            }
+        };
     });
 
 

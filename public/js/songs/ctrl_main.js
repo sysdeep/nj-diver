@@ -26,8 +26,8 @@
 		}
 
 		$scope.edit_song = function(song){
-			svcData.data.song = song;
-			$location.path( "/edit/" );
+			// svcData.data.song = song;
+			$location.path( "/edit/"+song._id );
 		}
 
 		$scope.remove_song = function(song){
@@ -39,8 +39,8 @@
 		}
 
 		$scope.add = function(){
-			svcData.set_default_song();
-			$location.path( "/edit" );
+			// svcData.set_default_song();
+			$location.path( "/edit/0" );
 		}
 
 		// $scope.refresh_limit = function(){

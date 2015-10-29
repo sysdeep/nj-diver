@@ -91,10 +91,23 @@ router.post("/create_song", function(req, res, next){
 		// if( req.body._id )
 		// 	delete req.body._id;
 		// console.log(req.body);
+		var save_data = {};
+
+		save_data.name 			= req.body.name;
+		save_data.singer		= req.body.singer;					// исполнитель
+		save_data.author		= req.body.author;					// автор
+	    save_data.album			= req.body.album;					// альбом
+	    save_data.text			= req.body.text;					// текст
+	    save_data.description	= req.body.description;					// доп. описание
+	    // save_data.// tags		= Array;				// теги
+		save_data.genre			= req.body.genre; 					// жанр
+		save_data.created		= new Date();					// дата создания
+		save_data.updated		= new Date();					// дата изменения
+		save_data.api 			= 1;
 
 
 
-		var song = new Song(req.body);
+		var song = new Song(save_data);
 		song.save(function(err, song){
 			if(err){
 				res.status(500).send(err);
