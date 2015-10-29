@@ -20,7 +20,8 @@ var export_obj = {};
 export_obj.connection = null;
 export_obj.connect = function(){
 	// mongoose.connect('mongodb://username:password@host:port/database?options...');
-	mongoose.connect("mongodb://"+db_host+":"+db_port+"/"+db_name);
+	// mongoose.connect("mongodb://"+db_host+":"+db_port+"/"+db_name);
+	mongoose.connect("mongodb://"+db_user+":"+db_pass+"@"+db_host+":"+db_port+"/"+db_name);
 	export_obj.connection = mongoose.connection;
 
 	export_obj.connection.on("error", console.error.bind(console, 'connection error:'));
