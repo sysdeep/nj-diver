@@ -5,6 +5,7 @@
 var express     = require('express');
 var router      = express.Router();
 var Song 		= require("../models/song");
+var model_singer = require("../models/singer");
 
 
 
@@ -87,10 +88,6 @@ router.get("/get_song/:id", function(req, res, next){
 router.post("/create_song", function(req, res, next){
 	if( Object.keys(req.body).length > 0 ){
 
-		// console.log(req.body);
-		// if( req.body._id )
-		// 	delete req.body._id;
-		// console.log(req.body);
 		var save_data = {};
 
 		save_data.name 			= req.body.name;
@@ -104,6 +101,15 @@ router.post("/create_song", function(req, res, next){
 		save_data.created		= new Date();					// дата создания
 		save_data.updated		= new Date();					// дата изменения
 		save_data.api 			= 1;
+
+
+
+		model_singer.find({name: save_data.singer}, function(err, docs){
+			if(!docs.length){
+				var singer = new model_singer({name: save_data.singer});
+				singer.save();
+			}
+		});
 
 
 
@@ -147,7 +153,12 @@ router.post("/update_song", function(req, res, next){
 			// song.api 		= 1
 
 
-
+			model_singer.find({name: song.singer}, function(err, docs){
+				if(!docs.length){
+				var singer = new model_singer({name: song.singer});
+					singer.save();
+				}
+			});
 
 			song.save(function(err, song){
 				if(err){
@@ -189,6 +200,38 @@ router.post("/remove_song", function(req, res, next){
 	
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+router.get("/get_singers/", function(req, res, next){
+	// console.log("all songs");
+	model_singer.find(function(err, docs){
+		
+		if(err){
+			console.log(err);
+			res.status(500).send(err);
+		}else{
+			res.status(200).send(docs);
+		}
+	});
+
+});
 
 
 // router.post("/songs", function(req, res, next){

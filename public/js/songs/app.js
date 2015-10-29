@@ -71,7 +71,7 @@
 
     app.run(function($rootScope, svcData, Notification, notify){
         $rootScope.data = svcData.data;
-
+        svcData.get_singers();
         // Notification("hello");
         // Notification("hello");
         // Notification("hello");
@@ -91,6 +91,7 @@
 
     /**
      * обёртка над Notification
+     * https://github.com/alexcrack/angular-ui-notification
      */
     app.factory("notify", function(Notification){
         return {

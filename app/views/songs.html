@@ -11,7 +11,7 @@
 
 {% block content %}
 
-<div ng-app="songsApp">
+<div ng-app="songsApp" ng-cloak>
 
 	<div class="container">
 
@@ -26,6 +26,17 @@
 				  	<a href="#/edit/0" class="list-group-item" ng-class="{active: data.current_view == 'edit'}">Создание</a>
 				  
 				</div>
+
+
+
+				<div class="page-header">
+  					<h5>Фильтр</h5>
+				</div>
+
+
+				<u>
+					<li ng-repeat="singer in data.singers">[[ singer.name ]]</li>
+				</u>
 
 
 			</div>

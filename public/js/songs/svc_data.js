@@ -14,7 +14,7 @@
 			"current_view": "",
 
 			"songs": [],
-			"songs_count": 0,
+			// "songs_count": 0,
 			"songs_loaded": false,
 			"songs_need_update": true,
 
@@ -22,6 +22,11 @@
 			"song_loaded": false,
 
 			
+
+			"singers": [],
+			"singers_loaded": false,
+
+
 			"filter": {
 				"date_start": "0000-00-00",
 				"date_end": "3000-12-31",
@@ -100,6 +105,7 @@
 		}
 
 
+
 		function get_song(id){
 			data.song_loaded = false;
 
@@ -126,6 +132,7 @@
 				data.songs_need_update = true;
 				notify.n_success("Запись создана успешно");
 				$location.path( "/song/"+data.song._id );
+				get_singers();
 			}).error(function(response){
 				console.log("error");
 				console.log(response);
@@ -140,6 +147,7 @@
 				data.songs_need_update = true;
 				notify.n_success("Запись обновлена успешно");
 				$location.path( "/song/"+data.song._id );
+				get_singers();
 			}).error(function(response){
 				console.log("error");
 				console.log(response);
@@ -164,6 +172,29 @@
 				notify.n_error(JSON.stringify(response), "Ошибка удаления записи");
 			});
 		}
+
+
+
+
+
+
+
+
+
+
+
+		function get_singers(){
+			$http.get("/songs/get_singers").success(function (response) {
+				data.singers = response;
+			}).error(function(response){
+				console.log("error");
+				console.log(response);
+			});
+		}
+
+
+
+
 
 		// function get_apps(){
 		//     data.apps_loaded = false;
@@ -266,7 +297,10 @@
 			"set_default_song"	: set_default_song,
 			"create_song"		: create_song,
 			"update_song"		: update_song,
-			"remove_song"		: remove_song
+			"remove_song"		: remove_song,
+
+
+			"get_singers"			: get_singers
 		}
 
 

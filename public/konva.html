@@ -1,0 +1,199 @@
+<html>
+	<head>
+		<title>Konva</title>
+		<script src="./bower_components/konva/konva.min.js"></script>
+	</head>
+	<body>
+		
+
+		<div id="chord"></div>
+
+
+
+		<script type="text/javascript">
+
+
+
+
+
+
+
+
+			var stage = new Konva.Stage({
+				container: 'chord',   // id of container <div>
+  				width: 500,
+  				height: 500
+			});
+
+			var layer = new Konva.Layer();
+
+
+
+			var rect = new Konva.Rect({
+		      x: 50,
+		      y: 50,
+		      width: 70,
+		      height: 100,
+		      fill: '#e9ffea',
+		      stroke: 'black',
+		      strokeWidth: 1
+		    });
+
+		    var line_1 = new Konva.Line({
+      			points: [55, 50, 55, 150],
+      			stroke: 'red',
+      			strokeWidth: 0.5,
+    		});
+
+
+    		var line_2 = new Konva.Line({
+      			points: [65, 50, 65, 150],
+      			stroke: 'red',
+      			strokeWidth: 1,
+    		});
+
+    		var line_3 = new Konva.Line({
+      			points: [75, 50, 75, 150],
+      			stroke: 'red',
+      			strokeWidth: 1,
+    		});
+
+    		var line_4 = new Konva.Line({
+      			points: [85, 50, 85, 150],
+      			stroke: 'red',
+      			strokeWidth: 1,
+    		});
+
+    		var line_5 = new Konva.Line({
+      			points: [95, 50, 95, 150],
+      			stroke: 'red',
+      			strokeWidth: 1,
+    		});
+
+    		var line_6 = new Konva.Line({
+      			points: [105, 50, 105, 150],
+      			stroke: 'red',
+      			strokeWidth: 1,
+    		});
+
+
+
+
+
+    		var por_1 = new Konva.Line({
+      			points: [50, 55, 120, 55],
+      			stroke: 'grey',
+      			strokeWidth: 1,
+    		});
+
+    		var por_2 = new Konva.Line({
+      			points: [50, 65, 120, 65],
+      			stroke: 'grey',
+      			strokeWidth: 1,
+    		});
+
+    		var por_3 = new Konva.Line({
+      			points: [50, 75, 120, 75],
+      			stroke: 'grey',
+      			strokeWidth: 1,
+    		});
+
+    		var por_4 = new Konva.Line({
+      			points: [50, 85, 120, 85],
+      			stroke: 'grey',
+      			strokeWidth: 1,
+    		});
+
+    		var por_5 = new Konva.Line({
+      			points: [50, 95, 120, 95],
+      			stroke: 'grey',
+      			strokeWidth: 1,
+    		});
+
+
+
+
+			// create our shape
+			var circle_1 = new Konva.Circle({
+			  x: 55,
+			  y: 60,
+			  radius: 4,
+			  fill: 'red',
+			  stroke: 'black',
+			  strokeWidth: 0
+			});
+
+
+			
+
+			var x_1 = new Konva.Text({
+		      x: 50,
+		      y: 30,
+		      text: 'x',
+		      fontSize: 15,
+		      // fontFamily: 'Calibri',
+		      fill: 'green'
+		    });
+
+		    var x_2 = new Konva.Text({
+		      x: 60,
+		      y: 30,
+		      text: 'x',
+		      fontSize: 15,
+		      // fontFamily: 'Calibri',
+		      fill: 'green'
+		    });
+
+		    var x_3 = new Konva.Text({
+		      x: 80,
+		      y: 30,
+		      text: 'o',
+		      fontSize: 15,
+		      // fontFamily: 'Calibri',
+		      fill: 'green'
+		    });
+
+
+
+		    var lad_1 = new Konva.Text({
+		      x: 40,
+		      y: 60,
+		      text: '1',
+		      fontSize: 15,
+		      // fontFamily: 'Calibri',
+		      fill: 'green'
+		    });
+
+
+
+			// add the shape to the layer
+			
+			layer.add(rect);
+			layer.add(line_1);
+			layer.add(line_2);
+			layer.add(line_3);
+			layer.add(line_4);
+			layer.add(line_5);
+			layer.add(line_6);
+
+			layer.add(por_1);
+			layer.add(por_2);
+			layer.add(por_3);
+			layer.add(por_4);
+			layer.add(por_5);
+
+
+			layer.add(circle_1);
+			layer.add(x_1);
+			layer.add(x_2);
+			layer.add(x_3);
+
+			layer.add(lad_1);
+
+			// add the layer to the stage
+			stage.add(layer);
+
+
+		</script>
+	</body>
+</html>
