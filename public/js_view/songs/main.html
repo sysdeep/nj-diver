@@ -5,6 +5,13 @@
 
 <hr>
 
+
+
+
+<input type="text" class="form-control" ng-model="data.filter.search.quick" placeholder="Быстрый поиск по всем полям">
+
+<hr>
+
 <table class="table table-bordered table-condensed">
 	<thead>
 		<tr>
@@ -23,7 +30,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="song in data.songs" ng-click11111111111111="show_song(song)">
+		<tr ng-repeat="song in songs_filtered()" ng-click11111111111111="show_song(song)">
 			<td>[[ song.singer ]]</td>
 			<td>[[ song.author ]]</td>
 			<td>[[ song.name ]]</td>

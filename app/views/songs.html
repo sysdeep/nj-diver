@@ -35,7 +35,16 @@
 
 
 				<u>
-					<li ng-repeat="singer in data.singers">[[ singer.name ]]</li>
+					<li>
+						<a href="javascript: void(0)" ng-click="data.filter.search.singer = ''">
+							---
+						</a>
+					</li>
+					<li ng-repeat="singer in data.singers">
+						<a href="javascript: void(0)" ng-click="data.filter.search.singer = singer.name">
+							[[ singer.name ]]
+						</a>
+					</li>
 				</u>
 
 

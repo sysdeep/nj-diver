@@ -20,7 +20,6 @@
 
 			"song": {},
 			"song_loaded": false,
-
 			
 
 			"singers": [],
@@ -28,6 +27,10 @@
 
 
 			"filter": {
+				"search": {
+					"quick": "",				// по всем полям
+					"singer": ""				// только по исполниелю
+				},
 				"date_start": "0000-00-00",
 				"date_end": "3000-12-31",
 
@@ -196,6 +199,13 @@
 
 
 
+
+		function select_singer(singer){
+			console.log(singer);
+			data.filter.search.singer = singer;
+		}
+
+
 		// function get_apps(){
 		//     data.apps_loaded = false;
 		//     $http.get("./api/v1/apps").success(function (response) {
@@ -300,7 +310,8 @@
 			"remove_song"		: remove_song,
 
 
-			"get_singers"			: get_singers
+			"get_singers"		: get_singers,
+			"select_singer"		: select_singer
 		}
 
 
