@@ -179,7 +179,7 @@ router.post("/get_songs_singer/", function(req, res, next){
 
 	console.log(req.body);
 
-	Song.find({"singer": req.body.name}, function(err, docs){
+	Song.find({"singer._id": req.body._id}, function(err, docs){
 		if(err){
 			console.log(err);
 			res.status(500).send(err);

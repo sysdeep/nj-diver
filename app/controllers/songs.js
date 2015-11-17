@@ -15,9 +15,15 @@ module.exports = songs;
 var song_prepare = function(data){
 	var o_data = {};
 
+	var singer = {
+		"name": data.singer.name,
+		"_id": data.singer._id
+	}
+
 	o_data.name 		= data.name 		|| "";	// название
-	o_data.singer		= data.singer 		|| "";	// исполнитель
-	o_data.singer_id	= data.singer_id	|| "";	// исполнитель
+	// o_data.singer		= data.singer 		|| "";	// исполнитель
+	// o_data.singer_id	= data.singer_id	|| "";	// исполнитель
+	o_data.singer = singer;
 	o_data.author		= data.author 		|| "";	// автор
     o_data.album		= data.album		|| "";	// альбом
     o_data.text			= data.text 		|| "";	// текст
@@ -36,7 +42,7 @@ songs.create_song = function(data, _cb){
 	var save_data = song_prepare(data);
 	save_data.created = new Date();
 
-	songs.singer_find_or_create(save_data.singer);
+	// songs.singer_find_or_create(save_data.singer);
 
 	var song = new model_song(save_data);
 	song.save(function(err, song){
@@ -66,7 +72,7 @@ songs.update_song = function(id, data, _cb){
 	var save_data = song_prepare(data);
 	console.log(save_data);
 
-	songs.singer_find_or_create(save_data.singer);
+	// songs.singer_find_or_create(save_data.singer);
 
 	model_song.findOneAndUpdate({_id: id}, save_data, function(err, song){
 		if(err){
@@ -125,7 +131,10 @@ songs.update_singer = function(id, data, _cb){
 
 
 
-			model_song.where({"singer_id": singer._id}).update({"singer": singer.name});
+			// model_song.where({"singer_id": singer._id}).update({"singer": singer.name});
+			model_song.update({"singer._id": singer._id}, {"singer.name": data.name}, {multi: true}, function(err, num){
+				console.log("updated songs with singer: ", num);
+			});
 
 
 			singer.name = data.name;

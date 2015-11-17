@@ -14,7 +14,9 @@
 			name: ""
 		};
 
-
+		$scope.refresh = function(){
+			svcData.get_singers();
+		}
 
 		$scope.add_singer = function(){
 			svcData.data.singer = {

@@ -9,6 +9,7 @@
         $scope.data = svcData.data;
         
         var self = this;
+        // $scope.current_singer_id = 0;
 
         $scope.song_id = $routeParams.song_id;
 

@@ -129,8 +129,8 @@
 
 
 		function create_song(){
-			data.song.singer = data.singer.name;
-			data.song.singer_id = data.singer._id;
+			// data.song.singer = data.singer.name;
+			// data.song.singer_id = data.singer._id;
 			$http.post("/songs/create_song", data.song).success(function(response){
 				console.log("ok");
 				console.log(response);
@@ -149,8 +149,8 @@
 		}
 
 		function update_song(){
-			data.song.singer = data.singer.name;
-			data.song.singer_id = data.singer._id;
+			// data.song.singer = data.singer.name;
+			// data.song.singer_id = data.singer._id;
 			$http.post("/songs/update_song", data.song).success(function(response){
 				console.log("ok");
 				data.song.updated = response.updated;
@@ -221,10 +221,10 @@
 		}
 
 
-		function get_songs_singer(){
+		function get_songs_singer(singer_id){
 			data.songs_loaded = false;
 
-			$http.post("/songs/get_songs_singer/", data.singer).success(function (response) {
+			$http.post("/songs/get_songs_singer/", {_id: singer_id}).success(function (response) {
 				data.songs = response;
 				data.songs_loaded = true;
 				notify.n_success("Загрузка списка песен для исполнителя - успешно");

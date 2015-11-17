@@ -84,10 +84,10 @@
 		$rootScope.data = svcData.data;
 		svcData.get_singers();
 
-		$rootScope.select_singer = function(singer){
-			svcData.data.singer = singer;
-			$location.path( "/singer/"+singer._id );
-		}
+		// $rootScope.select_singer = function(singer){
+		// 	svcData.data.singer = singer;
+		// 	$location.path( "/singer/"+singer._id );
+		// }
 
 
 		// Notification("hello");
