@@ -7,6 +7,8 @@ var router      = express.Router();
 var Song 		= require("../models/song");
 var model_singer = require("../models/singer");
 
+var controller_songs = require("../controllers/songs");
+
 
 
 router.get("/", function(req, res, next){
@@ -54,21 +56,6 @@ router.get("/get_songs/", function(req, res, next){
 
 
 
-// router.get("/songs/:id", function(req, res, next){
-// 	console.log("find by id");
-// 	Song.findById(req.params.id, function(err, song){
-// 		if(err){
-// 			console.log(err);
-// 			res.status(500).send(err);
-// 		}else{
-// 			res.status(200).send(song);
-// 		}
-// 	});
-
-// });
-
-
-
 router.get("/get_song/:id", function(req, res, next){
 	console.log("find by id");
 	Song.findById(req.params.id, function(err, song){
@@ -88,40 +75,14 @@ router.get("/get_song/:id", function(req, res, next){
 router.post("/create_song", function(req, res, next){
 	if( Object.keys(req.body).length > 0 ){
 
-		var save_data = {};
-
-		save_data.name 			= req.body.name;
-		save_data.singer		= req.body.singer;					// исполнитель
-		save_data.author		= req.body.author;					// автор
-	    save_data.album			= req.body.album;					// альбом
-	    save_data.text			= req.body.text;					// текст
-	    save_data.description	= req.body.description;					// доп. описание
-	    // save_data.// tags		= Array;				// теги
-		save_data.genre			= req.body.genre; 					// жанр
-		save_data.created		= new Date();					// дата создания
-		save_data.updated		= new Date();					// дата изменения
-		save_data.api 			= 1;
-
-
-
-		model_singer.find({name: save_data.singer}, function(err, docs){
-			if(!docs.length){
-				var singer = new model_singer({name: save_data.singer});
-				singer.save();
-			}
-		});
-
-
-
-		var song = new Song(save_data);
-		song.save(function(err, song){
+		controller_songs.create(req.body, function(err, song){
 			if(err){
 				res.status(500).send(err);
 			}else{
 				res.status(201).send(song);
 			}
 		});
-		
+
 	}else{
 		res.status(500).send("no input body");
 	}
