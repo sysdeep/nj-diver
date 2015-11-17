@@ -129,6 +129,8 @@
 
 
 		function create_song(){
+			data.song.singer = data.singer.name;
+			data.song.singer_id = data.singer._id;
 			$http.post("/songs/create_song", data.song).success(function(response){
 				console.log("ok");
 				console.log(response);
@@ -147,6 +149,8 @@
 		}
 
 		function update_song(){
+			data.song.singer = data.singer.name;
+			data.song.singer_id = data.singer._id;
 			$http.post("/songs/update_song", data.song).success(function(response){
 				console.log("ok");
 				data.song.updated = response.updated;
@@ -234,99 +238,45 @@
 
 
 
-		// function select_singer(singer){
-		// 	console.log(singer);
-		// 	data.filter.search.singer = singer;
-		// }
+
+		function create_singer(singer){
+			$http.post("/songs/create_singer/", singer).success(function(response){
+				data.singer = response;
+				data.singers.push(data.singer);
+				notify.n_success("Заданный исполнитель создан успешно");
+			}).error(function(response){
+				notify.n_error(JSON.stringify(response), "Заданный исполнитель создан неуспешно");
+			});
+		}
 
 
-		// function get_apps(){
-		//     data.apps_loaded = false;
-		//     $http.get("./api/v1/apps").success(function (response) {
-		//         data.apps = response;
-		//         data.apps_loaded = true;
-		//     }).error(function(response){
-		//         console.log("error");
-		//         console.log(response);
-		//         data.apps_loaded = true;
-		//     });
-		// }
+		function update_singer(singer){
+			$http.post("/songs/update_singer/", singer).success(function(response){
+				data.singer.name = response.name;
+				// data.singer = angular.copy(response);
+				// data.singers.push(data.singer);
+				notify.n_success("Заданный исполнитель обновлён успешно");
+			}).error(function(response){
+				notify.n_error(JSON.stringify(response), "Заданный исполнитель обновлён неуспешно");
+			});
+		}
 
 
-		// function get_logs_limit(){
-		//     data.logs_loaded = false;
-		//     var send_data = data.filter;
-		//     $http.post("./api/v1/log_limit", send_data).success(function (response) {
-		//         data.logs = response;
-		//         data.logs_loaded = true;
-		//     }).error(function(response){
-		//         console.log("error");
-		//         console.log(response);
-		//         data.logs_loaded = true;
-		//     });
-		// }
 
-		// function get_events_limit(page, pcount){
-		//     data.events_loaded = false;
-		//     var send_data = {
-		//         "page": page,
-		//         "pcount": pcount
-		//     };
-
-		//     $http.post("/events_limit", send_data).success(function (response) {
-		//         data.events = response.events;
-		//         data.events_count = response.events_count;
-		//         data.events_loaded = true;
-		//     }).error(function(response){
-		//         console.log("error");
-		//         console.log(response);
-		//         data.events_loaded = true;
-		//     });
-		// }
+		function remove_singer(singer){
+			$http.post("/songs/remove_singer/", singer).success(function(response){
+				data.singer = {};
+				var index = data.singers.indexOf(response);
+				data.singers.splice(index, 1);
+				notify.n_success("Заданный исполнитель удалён успешно");
+			}).error(function(response){
+				notify.n_error(JSON.stringify(response), "Заданный исполнитель удалён неуспешно");
+			});
+		}
 
 
 
 
-
-		// function get_data_dirs(file_type){
-		//     data.data_dirs_loaded = false;
-		//     data.data_files = [];
-		//     $http.post("/blg_data_dirs", {file_type: file_type}).success(function (response) {
-		//         data.data_dirs = response;
-		//         data.data_dirs_loaded = true;
-		//     }).error(function(response){
-		//         console.log("error");
-		//         console.log(response);
-		//         data.data_dirs_loaded = true;
-		//     });
-		// }
-
-
-
-		// function get_data_files(file_type, dir){
-		//     data.data_files_loaded = false;
-		//     $http.post("/blg_data_files", {file_type: file_type, dir: dir}).success(function (response) {
-		//         data.data_files = response;
-		//         data.data_files_loaded = true;
-		//     }).error(function(response){
-		//         console.log("error");
-		//         console.log(response);
-		//         data.data_files_loaded = true;
-		//     });
-		// }
-
-
-		//  function get_data_file(file_type, dir, file){
-		//     data.data_file_loaded = false;
-		//     $http.post("/blg_data_file", {file_type: file_type, dir: dir, file: file}).success(function (response) {
-		//         data.data_file = response;
-		//         data.data_file_loaded = true;
-		//     }).error(function(response){
-		//         console.log("error");
-		//         console.log(response);
-		//         data.data_file_loaded = true;
-		//     });
-		// }
 
 
 
@@ -348,6 +298,9 @@
 			// "select_singer"		: select_singer
 			"get_singer"		: get_singer,
 			"get_songs_singer"			: get_songs_singer,
+			"create_singer"		: create_singer,
+			"update_singer"		: update_singer,
+			"remove_singer"		: remove_singer
 		}
 
 

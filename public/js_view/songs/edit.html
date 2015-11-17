@@ -10,9 +10,14 @@
 	<div class="form-group">
 		<label for="inputSinger" class="col-sm-2 control-label">Исполнитель</label>
 		<div class="col-sm-10">
+			<select ng-model="data.singer" ng-options="singer as singer.name for singer in data.singers"></select>
+			<!--
 			<input type="text" class="form-control" id="inputSinger" placeholder="Исполнитель" ng-model="data.song.singer">
+			-->
 		</div>
 	</div>
+
+	[[ data.singer ]]
 
 	<div class="form-group">
 		<label for="inputName" class="col-sm-2 control-label">Название</label>

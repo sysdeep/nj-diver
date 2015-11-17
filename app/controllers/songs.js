@@ -17,6 +17,7 @@ var song_prepare = function(data){
 
 	o_data.name 		= data.name 		|| "";	// название
 	o_data.singer		= data.singer 		|| "";	// исполнитель
+	o_data.singer_id	= data.singer_id	|| "";	// исполнитель
 	o_data.author		= data.author 		|| "";	// автор
     o_data.album		= data.album		|| "";	// альбом
     o_data.text			= data.text 		|| "";	// текст
@@ -30,7 +31,7 @@ var song_prepare = function(data){
 }
 
 
-songs.create = function(data, _cb){
+songs.create_song = function(data, _cb){
 
 	var save_data = song_prepare(data);
 	save_data.created = new Date();
@@ -61,17 +62,104 @@ songs.singer_find_or_create = function(singer_name){
 }
 
 
-// songs.update = function(id, data, _cb){
-// 	var save_data = song_prepare(data);
+songs.update_song = function(id, data, _cb){
+	var save_data = song_prepare(data);
+	console.log(save_data);
 
-// 	model_song.findById(id, function(err, song){
-		
-// 	})
+	songs.singer_find_or_create(save_data.singer);
 
-// 	// model_singer.find({name: song.singer}, function(err, docs){
-// 	// 			if(!docs.length){
-// 	// 			var singer = new model_singer({name: song.singer});
-// 	// 				singer.save();
-// 	// 			}
-// 	// 		});
-// }
+	model_song.findOneAndUpdate({_id: id}, save_data, function(err, song){
+		if(err){
+			_cb(err, null)
+		}else{
+			_cb(null, song)
+		}
+	});
+}
+
+
+
+
+
+songs.remove_song = function(id, _cb){
+	model_song.findById( id, function(err, song){
+		if(err){
+			_cb(err, null);
+			return 1;
+		}
+
+		song.remove(function(err){
+			if(err){
+				_cb(err, null);
+			}else{
+				_cb(null, null);
+			}
+		});
+			
+	});
+}
+
+
+
+
+songs.create_singer = function(data, _cb){
+	var singer = new model_singer({name: data.name});
+	singer.save(function(err, singer){
+		if(err){
+			_cb(err, null);
+		}else{
+			_cb(null, singer);
+		}
+	});
+}
+
+
+
+songs.update_singer = function(id, data, _cb){
+
+	var save_data = {"name": data.name};
+	model_singer.findById(id, function(err, singer){
+		if(err){
+			_cb(err, null);	
+		}else{
+
+
+
+			model_song.where({"singer_id": singer._id}).update({"singer": singer.name});
+
+
+			singer.name = data.name;
+			singer.save(function(err, singer){
+				if(err){
+					_cb(err, null)
+				}else{
+					console.log(singer);
+					_cb(null, singer)
+				}	
+			});
+		}
+
+	});
+
+}
+
+
+songs.remove_singer = function(id, _cb){
+
+	model_singer.findById( id, function(err, singer){
+		if(err){
+			_cb(err, null);
+			return 1;
+		}
+
+		singer.remove(function(err){
+			if(err){
+				_cb(err, null);
+			}else{
+				_cb(null, singer);
+			}
+		});
+			
+	});
+
+}
