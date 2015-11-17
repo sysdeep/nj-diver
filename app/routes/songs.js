@@ -133,6 +133,8 @@ router.post("/create_song", function(req, res, next){
 
 router.post("/update_song", function(req, res, next){
 
+
+
 	var id = req.body._id;
 	Song.findById( id, function(err, song){
 		if(err){
@@ -169,6 +171,87 @@ router.post("/update_song", function(req, res, next){
 			});		
 		}
 	});
+
+
+
+
+
+
+
+	// var id = req.body._id;
+	// var singer_name = req.body.singer;
+	// var singer_id = 0;
+
+
+	// var query = model_singer.find({name: singer_name});
+	// var promise = query.exec();
+	// promise.then(function(doc){
+ // 		if(doc.length){
+ // 			singer_id = doc._id;
+ // 		}
+
+ // 		console.log(singer_id);
+	// });
+
+
+	// console.log(singer_id);
+	// res.send("ok");
+
+
+	// model_singer.find({name: singer_name}, function(err, singer){
+	// 	if(!singer.length){
+	// 		var singer = new model_singer({name: song.singer});
+	// 		singer.save(function(singer){
+	// 			singer_id = singer._id;
+	// 			console.log("created singer", singer);
+	// 			return singer;
+	// 		});
+	// 	}else{
+	// 		console.log("found singer: "+ singer);
+	// 		singer_id = singer._id;
+	// 		return singer;
+	// 	}
+	// })
+	// .then(function(singer){
+		
+	// 	console.log("start update song", singer);
+
+	// 	Song.findById( id, function(err, song){
+	// 		if(err){
+	// 			res.status(500).send(err);
+	// 		}else{
+			
+	// 			console.log(singer_id);
+
+	// 			song.name 			= req.body.name;
+	// 			song.singer			= req.body.singer;					// исполнитель
+	// 			song.singer_id		= singer_id;					// исполнитель
+	// 			song.author			= req.body.author;					// автор
+	// 	    	song.album			= req.body.album;					// альбом
+	// 	    	song.text			= req.body.text;					// текст
+	// 	    	song.description	= req.body.description;					// доп. описание
+	// 	    	// song.// tags		= Array;				// теги
+	// 			song.genre			= req.body.genre; 					// жанр
+	// 			// song.created		= req.body.name;					// дата создания
+	// 			song.updated		= new Date();					// дата изменения
+	// 			// song.api 		= 1
+
+
+			
+
+	// 			song.save(function(err, song){
+	// 				if(err){
+	// 					res.status(500).send(err);
+	// 				}else{
+	// 					res.status(201).send(song);
+	// 				}
+	// 			});		
+	// 		}
+	// 	});
+	// });
+
+
+	
 	
 	
 });
@@ -223,6 +306,36 @@ router.get("/get_singers/", function(req, res, next){
 	// console.log("all songs");
 	model_singer.find(function(err, docs){
 		
+		if(err){
+			console.log(err);
+			res.status(500).send(err);
+		}else{
+			res.status(200).send(docs);
+		}
+	});
+
+});
+
+
+
+router.get("/get_singer/:id", function(req, res, next){
+	model_singer.findById(req.params.id, function(err, docs){
+		if(err){
+			console.log(err);
+			res.status(500).send(err);
+		}else{
+			res.status(200).send(docs);
+		}
+	});
+
+});
+
+
+router.post("/get_songs_singer/", function(req, res, next){
+
+	console.log(req.body);
+
+	Song.find({"singer": req.body.name}, function(err, docs){
 		if(err){
 			console.log(err);
 			res.status(500).send(err);

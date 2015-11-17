@@ -25,6 +25,9 @@
 			"singers": [],
 			"singers_loaded": false,
 
+			"singer": {},
+			"singer_loaded": false,
+
 
 			"filter": {
 				"search": {
@@ -196,14 +199,45 @@
 		}
 
 
+		function get_singer(id){
+			data.singer_loaded = false;
 
-
-
-
-		function select_singer(singer){
-			console.log(singer);
-			data.filter.search.singer = singer;
+			$http.get("/songs/get_singer/"+id).success(function (response) {
+				data.singer = response;
+				data.singer_loaded = true;
+				notify.n_success("Загрузка записи исполнителя - успешно");
+				// _cb(null, response);
+			}).error(function(response){
+				console.log("error");
+				console.log(response);
+				data.singer_loaded = true;
+				notify.n_error(JSON.stringify(response), "Ошибка загрузки записи исполнителя");
+				// _cb("error", response);
+			});
 		}
+
+
+		function get_songs_singer(){
+			data.songs_loaded = false;
+
+			$http.post("/songs/get_songs_singer/", data.singer).success(function (response) {
+				data.songs = response;
+				data.songs_loaded = true;
+				notify.n_success("Загрузка списка песен для исполнителя - успешно");
+			}).error(function(response){
+				console.log("error");
+				console.log(response);
+				data.songs_loaded = true;
+				notify.n_error(JSON.stringify(response), "Ошибка загрузки списка песен для исполнителя");
+			});
+		}
+
+
+
+		// function select_singer(singer){
+		// 	console.log(singer);
+		// 	data.filter.search.singer = singer;
+		// }
 
 
 		// function get_apps(){
@@ -311,7 +345,9 @@
 
 
 			"get_singers"		: get_singers,
-			"select_singer"		: select_singer
+			// "select_singer"		: select_singer
+			"get_singer"		: get_singer,
+			"get_songs_singer"			: get_songs_singer,
 		}
 
 

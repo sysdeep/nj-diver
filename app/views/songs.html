@@ -41,7 +41,9 @@
 						</a>
 					</li>
 					<li ng-repeat="singer in data.singers">
-						<a href="javascript: void(0)" ng-click="data.filter.search.singer = singer.name">
+						<!-- <a href="javascript: void(0)" ng-click="data.filter.search.singer = singer.name"></a> -->
+						<!-- <a href="#/singer/[[ singer._id ]]" ng-click="select_singer(singer)"> -->
+						<a href="javascript: void(0)" ng-click="select_singer(singer)">
 							[[ singer.name ]]
 						</a>
 					</li>
@@ -88,6 +90,7 @@
 	<script src="/js/songs/ctrl_edit.js?version={{ VERSION }}"></script>
 	<script src="/js/songs/ctrl_main.js?version={{ VERSION }}"></script>
 	<script src="/js/songs/ctrl_song.js?version={{ VERSION }}"></script>
+	<script src="/js/songs/ctrl_singer.js?version={{ VERSION }}"></script>
 
 	
 

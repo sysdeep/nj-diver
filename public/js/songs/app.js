@@ -43,6 +43,12 @@
             controller: "SongCtrl"
         });
 
+
+        $routeProvider.when("/singer/:singer_id", {
+            templateUrl : "/js_view/songs/singer.html",
+            controller: "SingerCtrl"
+        });
+
         // $routeProvider.when("/logs", {
         //     templateUrl : "./views/partial/logs.html",
         //     controller: "LogsCtrl"
@@ -69,9 +75,16 @@
 
 
 
-    app.run(function($rootScope, svcData, Notification, notify){
+    app.run(function($rootScope, svcData, Notification, notify, $location){
         $rootScope.data = svcData.data;
         svcData.get_singers();
+
+        $rootScope.select_singer = function(singer){
+            svcData.data.singer = singer;
+            $location.path( "/singer/"+singer._id );
+        }
+
+
         // Notification("hello");
         // Notification("hello");
         // Notification("hello");
